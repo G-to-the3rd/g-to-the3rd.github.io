@@ -1,0 +1,546 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bobert</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <style>
+            body {
+    font-family: "Press Start 2P", Arial;
+    margin: 0;
+    background: white;
+    color: #2f3542;
+    font-size: 10px;
+    }
+
+
+    .top-ui {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;  
+    padding: 20px;
+    background: rgba(255,255,255,0.2);
+    height: 274px;
+    }
+
+
+    .bar-bg {
+    border: 4px solid #2f3542;
+    height: 20px;
+    width: 150px;
+    background: #dfe4ea;
+    position: relative;
+    overflow: hidden;
+    }
+
+
+    .center-area {
+    position: relative;
+    text-align: center;
+    margin-top: 100px;
+    min-height: 200px;
+    }
+
+    .decoration {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    }
+
+    .decoration.owned {
+    display: block;
+    }
+
+    .tv-sprite {
+    width: 100px; 
+    bottom: 57%;
+    left: -35%;   
+    }
+
+    .poster-sprite {
+    width: 50px; 
+    bottom: 95%;
+    left: 55%; 
+    }
+
+    .roommate-sprite {
+    width: 170px; 
+    bottom: 60%;
+    left: 78%; 
+    }
+
+    .floppa-sprite {
+    width: 67px; 
+    bottom: 45%;
+    left: 78%; 
+    }
+
+    .ac-sprite {
+    width: 89px; 
+    bottom: 120%;
+    left: 35%; 
+    }
+
+    .bobert {
+    width: 150px;
+    margin: 0 auto;
+    margin-bottom: 10px
+    }
+
+    .bobert img {
+    width: 100%;
+    height: auto;
+    display: block;
+    }
+
+    .clicker-btn {
+    font-family: "Press Start 2P";
+    padding: 15px 25px;
+    margin-bottom: 12px;
+    background: #f0932b;
+    border: none;
+    border-bottom: 6px solid #d35400;
+    color: white;
+    cursor: pointer;
+    }
+
+    .clicker-btn:active {
+    opacity: 0.6;
+    }
+
+    .shop-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #535c68;
+    padding: 10px 0;
+    border-top: 4px solid #2f3542;
+    }
+
+    .shop-footer h3 {
+    color: white;
+    margin-left: 20px;
+    }
+
+    .shop-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 20px;
+    }
+
+
+    .item-card {
+    min-width: 120px;
+    background: #f1f2f6;
+    padding: 10px;
+    border: 4px solid #2f3542;
+    text-align: center;
+    flex-shrink: 0;
+    }
+
+    .item-card img, .item-card .icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    }
+
+    .item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 150px;
+    }
+
+    .item-desc {
+    font-size: 8px;
+    color: #747d8c;
+    margin-bottom: 10px;
+    }
+
+    .buy-btn {
+    font-family: "Press Start 2P";
+    font-size: 8px;
+    background: #2ed573;
+    border: none;
+    border-bottom: 3px solid #26af5a;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    }
+
+    .buy-btn:active {
+    border-bottom: solid #187035;
+    color: white;
+    background-color: #21a34c;
+    }
+
+    a:link, a:visited, a:hover, a:active {
+    color: #2f3542;
+    text-decoration: none;
+    }
+
+    .bar-fill {
+    height: 100%;
+    width: 100%;
+    background: #2ed573;
+    transition: width 0.3s, background 0.3s;
+    }
+
+    .bar-fill.low {
+    background: #ff4757;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+
+    .shake {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    #tv {
+        display: none;
+    }
+    #poster {
+        display: none;
+    }
+    #roommate {
+        display: none;
+    }
+    #floppa {
+        display: none;
+    }
+    #ac {
+        display: none;
+    }
+        </style>
+    </head>
+    <body>
+        <div class="top-ui">
+    <div class="stats">
+        <p>HAPPINESS: </p>
+        <div class="bar-bg">
+        <div id="happiness-fill" class="bar-fill" style="width: 100%"></div>
+        </div>
+        <p id="money-display">Mony: $0</p>
+    </div>
+    <div class="center-area">
+        
+    <img src="https://i.imgur.com/FZio2vi.png" class="decoration tv-sprite" alt="tv" id="tv">
+        
+    <img src="https://i.imgur.com/AXXXj98.jpeg" class="decoration poster-sprite" alt="tv" id="poster">
+        
+    <img src="https://i.imgur.com/f4NCq81.png.jpeg" class="decoration roommate-sprite" alt="tv" id="roommate">
+        
+    <img src="https://www.pngall.com/wp-content/uploads/14/Floppa-PNG-Pic.png" class="decoration floppa-sprite" alt="tv" id="floppa">
+        
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/065/762/053/small/isolated-air-conditioning-unit-for-smart-home-and-interior-design-png.png" class="decoration ac-sprite" alt="tv" id="ac">   
+        
+        <div class="bobert" id="bobert"><img src="https://i.imgur.com/JmI7rS8.png" alt="bobert"></div>
+        
+        <p class="bubble" id="text">Bobert money making machine</p>
+        <button class="clicker-btn" id="click" onclick="money()">GET MONEY</button> 
+        <div id="money-get-display">$1</div>
+    </div>
+
+    <div class="about" style="text-align:right">
+        <a href="about.html">ABOUT</a>
+    </div>
+    </div>
+
+    <div class="shop-footer">
+    <h3>Shop of useless things</h3>
+    <div class="shop-container">
+        
+        <div class="item-card">
+        <img src="https://static.wikia.nocookie.net/roblox-bear-content/images/c/c8/Cheezburger.png/revision/latest?cb=20210217193105" alt="Burger" >
+        <div class="card-info">
+            <p class="item-name">Bobert Food</p>
+            <p class="item-desc">+10 Happy</p>
+        </div>
+        <button class="buy-btn" id="bfood" onclick="BFOOD()">Buy (50)</button>
+        </div>
+
+        
+        <div class="item-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlFdfuSGY9X63VMYNTPDXvUbCro7c2e9wrqw&s" alt="tv" style="width: 60px">
+        <div class="card-info">
+            <p class="item-name">High quality TV</p>
+            <p class="item-desc">+1 Money</p>
+        </div>
+        <button class="buy-btn" id="bhqtv" onclick="BHQTV()">Buy (100)</button>
+        </div>
+        
+        
+        <div class="item-card">
+        <img src="https://m.media-amazon.com/images/I/91CojPTqKjL.jpg" alt="tv">
+        <div class="card-info">
+            <p class="item-name">Cat poster</p>
+            <p class="item-desc">+3 Money</p>
+        </div>
+        <button class="buy-btn" id="bcp" onclick="BCP()">Buy (175)</button>
+        </div>
+        
+        
+        <div class="item-card">
+        <img src="https://i.pinimg.com/474x/80/40/a0/8040a0b4405ee2277cd9e7083a61c3f3.jpg" alt="roommate">
+        <div class="card-info">
+            <p class="item-name">Roommate</p>
+            <p class="item-desc">Generates cash</p>
+        </div>
+        <button class="buy-btn" id="bro" onclick="BRO()">Buy (550)</button>
+        </div>
+        
+        
+        <div class="item-card">
+        <img src="https://i.pinimg.com/564x/85/91/04/8591045ca3789a195e1dc6d0011d9b08.jpg" alt="tv">
+        <div class="card-info">
+            <p class="item-name">Floppa</p>
+            <p class="item-desc">+5 Money</p>
+        </div>
+        <button class="buy-btn" id="bfl" onclick="BFL()">Buy (1.5K)</button>
+        </div>
+        
+        
+        <div class="item-card">
+        <img src="https://static.wikia.nocookie.net/cbb8ed9f-4a4c-4ebd-b9c7-d1cec0ec0f2d" alt="tv">
+        <div class="card-info">
+            <p class="item-name">Air conditioner</p>
+            <p class="item-desc">x2 Money</p>
+        </div>
+        <button class="buy-btn" id="bac" onclick="BAC()">Buy (5K)</button>
+        </div>
+        
+        
+        <div class="item-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLVko2c4fsiuOv2KuP12yMQhV98yqZTS2Zrw&s" alt="tv">
+        <div class="card-info">
+            <p class="item-name">J*b</p>
+            <p class="item-desc">x10 Money</p>
+        </div>
+        <button class="buy-btn" id="job" onclick="JOB()">Buy (10K)</button>
+        </div>
+        
+        <div class="item-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIdtTS-HUzNlUlkL5dvczq5sqMY7tOZwqdPQ&s" style="width: 75px" alt="tv">
+        <div class="card-info">
+            <p class="item-name">God cube</p>
+            <p class="item-desc">The end???</p>
+        </div>
+        <button class="buy-btn" id="gcu" onclick="GCU()">Buy (67K)</button>
+        </div>
+        
+        </div>
+    </div>
+    <script>
+    var m = 0;
+    var vtqh = 0;
+    var pcb = 0;
+    var orb = 0;
+    var lfb = 0;
+    var cab = 0;
+    var boj = 0;
+    var ucg = 0;
+    var v = 1;
+    var t = 50;
+    var happiness = 100; 
+    var generatorInterval = 0;
+    const bfood = document.getElementById('bfood');
+    const bhqtv = document.getElementById('bhqtv');
+    const bcp = document.getElementById('bcp');
+    const bro = document.getElementById('bro');
+    const bfl = document.getElementById('bfl');
+    const bac = document.getElementById('bac');
+    const job = document.getElementById('job');
+    const gcu = document.getElementById('gcu');
+    const happinessBar = document.getElementById('happiness-fill');
+    const restart = document.getElementById('click');
+    var sadness = setInterval(() => {
+    if (happiness > 0) {
+        happiness -= 1;
+        updateHappinessUI();
+    }
+    }, 2000);
+
+    function updateHappinessUI() {
+    happinessBar.style.width = happiness + "%";
+    if (happiness < 30) {
+        happinessBar.classList.add('low');
+    } else {
+        happinessBar.classList.remove('low');
+    }
+    if (happiness == 0) {
+        m = 0;
+        money();
+        clearInterval(sadness);
+        document.getElementById('bobert').remove();
+        document.getElementById('text').innerHTML = "Bobert has died a sad death, you lose.";
+        document.getElementById('money-get-display').innerHTML = "R.I.P. Bobert";
+        document.getElementById('click').innerHTML = "Reincarnate Bobert";
+        document.getElementById('click').onclick = function() {
+            location.reload();
+        };
+    }
+    }
+
+    function money() {
+    m += v;
+    document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    }
+
+    function monygetdisp() {
+    document.getElementById('money-get-display').innerHTML = "$" + v;
+    }
+
+    function BFOOD() {
+    if (m >= t && happiness < 100) {
+        happiness = Math.min(100, happiness + 10); 
+        m -= t;
+        t = Math.floor(t * 1.1);
+        document.getElementById('bfood').innerHTML = "Buy (" + t + ")";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+        updateHappinessUI();
+    } else {
+        bfood.classList.add('shake');
+        setTimeout(() => bfood.classList.remove('shake'), 500);
+    }
+    }
+
+    function BHQTV() {
+    let d = 100; 
+    if (m >= d && vtqh == 0) {
+        m -= d;
+        v++;
+        vtqh++;
+        monygetdisp();
+        document.getElementById('tv').style.display = "Block";
+        document.getElementById('bhqtv').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        bhqtv.classList.add('shake');
+        setTimeout(() => bhqtv.classList.remove('shake'), 500);
+    }
+    }
+
+    function BCP() {
+    let d = 175;
+    if (m >= d && pcb == 0) {
+        m -= d;
+        v += 3;
+        pcb++;
+        monygetdisp();
+        document.getElementById('poster').style.display = "Block";
+        document.getElementById('bcp').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        bcp.classList.add('shake');
+        setTimeout(() => bcp.classList.remove('shake'), 500);
+    }
+    }
+
+    function BRO() {
+    let d = 550;
+    if (m >= d && orb == 0) {
+        Generator();
+        m -= d;
+        orb++;
+        document.getElementById('roommate').style.display = "Block";
+        document.getElementById('bro').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        bro.classList.add('shake');
+        setTimeout(() => bro.classList.remove('shake'), 500);
+    }
+    }
+
+    function BFL() {
+    let d = 1500;
+    if (m >= d && lfb == 0) {
+        m -= d;
+        v += 5;
+        lfb++;
+        monygetdisp();
+        document.getElementById('floppa').style.display = "Block";
+        document.getElementById('bfl').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        bfl.classList.add('shake');
+        setTimeout(() => bfl.classList.remove('shake'), 500);
+    }
+    }
+
+    function BAC() {
+    let d = 5000;
+    if (m >= d && cab == 0) {
+        m -= d;
+        v *= 2;
+        cab++;
+        monygetdisp();
+        document.getElementById('ac').style.display = "Block";
+        document.getElementById('bac').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        bac.classList.add('shake');
+        setTimeout(() => bac.classList.remove('shake'), 500);
+    }
+    }
+
+    function JOB() {
+    let d = 10000;
+    if (m >= d && boj == 0) {
+        m -= d;
+        v *= 10;
+        boj++;
+        monygetdisp();
+        document.getElementById('job').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    } else {
+        job.classList.add('shake');
+        setTimeout(() => job.classList.remove('shake'), 500);
+    }
+    }
+
+    function GCU() {
+    let d = 67000;
+    if (m >= d && ucg == 0) {
+        m = 0;
+        ucg++;
+        document.getElementById('gcu').innerHTML = "Bought";
+        document.getElementById('money-display').innerHTML = "Mony: $∞";
+        document.getElementById('text').innerHTML = "Bobert has acquired the God Cube and is eternally grateful for your care. You win!!!";
+        document.getElementById('money-get-display').innerHTML = "All Hail Lord Bobert!!!";
+        document.getElementById('click').innerHTML = "Reincarnate Bobert";
+        document.getElementById('click').onclick = function() {
+            location.reload();
+        };
+        clearInterval(sadness);
+        happiness = 100;
+        updateHappinessUI();
+    } else {
+        gcu.classList.add('shake');
+        setTimeout(() => gcu.classList.remove('shake'), 500);
+    }
+    }
+
+    function Generator() { 
+    generatorInterval = setInterval(() => {
+        Farm();
+    }, 1000);
+    }
+
+    function Farm() { 
+    m += v;
+    document.getElementById('money-display').innerHTML = "Mony: $" + m;
+    }
+
+    monygetdisp();
+    updateHappinessUI();
+    </script>
+    </body>
+    </html>
