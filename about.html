@@ -72,11 +72,16 @@ button{
 </div>
 </div>
     <div class="info">Click, upgrade, repeat. A clicker game where you have a virtual pet to care and nurture. It is inspired by many clicker tycoons and simulaters where you.. click stuff. You may use an autoclicker if you decided that things weren't fast enough.</div>
-<button href="index.html">Back</button>
+<button id="indexButton">Back</button>
   
 </div>
-
+<script>
+    document.getElementById("indexButton").onclick = function() {
+    window.location.href = "index.html";
+};
+</script>
 </body>
 
 </html>
+
 
