@@ -378,7 +378,7 @@
     if (happiness == 0) {
         m = 0;
         monygetdisp();
-        clearInterval(sadness);
+        REM();
         document.getElementById('bobert').remove();
         document.getElementById('text').innerHTML = "Bobert has died a sad death, you lose.";
         document.getElementById('money-get-display').innerHTML = "R.I.P. Bobert";
@@ -520,7 +520,7 @@
         document.getElementById('click').onclick = function() {
             location.reload();
         };
-        clearInterval(sadness);
+        REM();
         happiness = 100;
         updateHappinessUI();
     } else {
@@ -535,6 +535,11 @@
     }, 1000);
     }
 
+    function REM() {
+        clearInterval(generatorInterval);
+        clearInterval(sadness);
+    }
+        
     function Farm() { 
     m += v;
     document.getElementById('money-display').innerHTML = "Mony: $" + m;
@@ -545,5 +550,6 @@
     </script>
     </body>
     </html>
+
 
 
